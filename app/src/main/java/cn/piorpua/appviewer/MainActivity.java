@@ -90,15 +90,19 @@ public class MainActivity extends Activity {
 			@Override
 			public void onLoad(List<AppModel> list) {
 				mListView.setList(list);
-				
+
 				mHandler.sendEmptyMessage(MyHandler.MSG_DATA_READY);
 				mHandler.sendEmptyMessage(MyHandler.MSG_LOADING_HIDE);
 			}
 		});
-		
-		if (!CommonUtil.MyApplication.hasShortcut(this, R.string.app_name)) {
+
+		MainPreference mainPreference = MainPreference.getIns();
+		if (!mainPreference.isShortcurCreated() &&
+                !CommonUtil.MyApplication.hasShortcut(this, R.string.app_name)) {
+
 			CommonUtil.MyApplication.addShortcut(
 					this, R.string.app_name, R.mipmap.ic_launcher);
+            mainPreference.setShortcutCreated(true);
 		}
 	}
 
