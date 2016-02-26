@@ -1,3 +1,30 @@
 <resources>
-    <string name="app_name">AppViewer</string>
+    <string name="app_name">应用查看器</string>
+    <string name="loading_txt">载入中</string>
+    <string name="searchview_query_hint_txt">键入应用名或包名关键字...</string>
+
+    <string name="appdetail_dialog_level_desc">应用级别：普通</string>
+    <string name="appdetail_dialog_level_desc_sys">应用级别：&lt;font color=#ff0000 &gt;系统&lt;/font&gt;</string>
+    <string name="appdetail_dialog_installtime_desc">安装日期：%1$s</string>
+    <string name="appdetail_dialog_apksize_desc">包大小：%1$s</string>
+    <string name="appdetail_dialog_datasize_desc">数据大小：%1$s</string>
+    <string name="appdetail_dialog_pkgname_desc">包名：%1$s</string>
+    <string name="appdetail_dialog_apppath_desc">路径：%1$s</string>
+
+    <string name="advance_conf_dialog_title">高级设置</string>
+    <string name="advance_conf_dialog_asc">升序</string>
+    <string name="advance_conf_dialog_desc">降序</string>
+    <string name="advance_conf_dialog_sys_filter">过滤系统应用</string>
+
+    <string name="advance_conf_dialog_sort_type_default">默认</string>
+    <string name="advance_conf_dialog_sort_type_appname">按应用名</string>
+    <string name="advance_conf_dialog_sort_type_pkgname">按包名</string>
+    <string name="advance_conf_dialog_sort_type_time">按安装时间</string>
+    <string name="advance_conf_dialog_sort_type_size">按大小</string>
+
+    <string name="btn_text_advance">高级</string>
+    <string name="btn_text_detail">详情</string>
+    <string name="btn_text_uninstall">删除</string>
+    <string name="btn_text_confirm">确定</string>
+    <string name="btn_text_reset">重置</string>
 </resources>

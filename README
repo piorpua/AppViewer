@@ -1,8 +1,9 @@
 AppViewer on Android
 
 1.  Show all the apps on your device, include system apps.
-2.  Support sort the apps list by app's name, package name, install time, size.
-3.  Convenient way to system app info or uninstall.
+2.  Search apps by the keywords of name or package name.
+3.  Support sort the apps list by app's name, package name, install time, size.
+4.  Convenient way to system app info or uninstall.
 
 @author piorpua
 @email helloworld.hnu@gmail.com
