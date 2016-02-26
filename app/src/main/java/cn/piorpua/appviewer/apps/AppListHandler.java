@@ -132,9 +132,7 @@ public final class AppListHandler {
 	}
 	
 	public void asycLoadAppList(ICallback callback) {
-		new Thread(
-				new AppLoadRunnable(callback)
-		).start();
+		new Thread(new AppLoadRunnable(callback)).start();
 	}
 	
 }

@@ -90,6 +90,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onLoad(List<AppModel> list) {
 				mListView.setList(list);
+                mListView.filter(mConfDialog.getConfig());
 
 				mHandler.sendEmptyMessage(MyHandler.MSG_DATA_READY);
 				mHandler.sendEmptyMessage(MyHandler.MSG_LOADING_HIDE);

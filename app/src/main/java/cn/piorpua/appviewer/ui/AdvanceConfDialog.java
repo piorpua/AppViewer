@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import cn.piorpua.android.ui.components.apkicon.BaseAlertDialog;
+import cn.piorpua.appviewer.MainPreference;
 import cn.piorpua.appviewer.R;
 import cn.piorpua.appviewer.apps.AppModelCmp.SortOrder;
 import cn.piorpua.appviewer.apps.AppModelCmp.SortType;
@@ -28,7 +29,7 @@ public final class AdvanceConfDialog extends BaseAlertDialog {
 		public boolean sysAppFilter;
 		
 		public AdvanceConfig() {
-			reset();
+            load();
 		}
 		
 		public void reset() {
@@ -36,6 +37,30 @@ public final class AdvanceConfDialog extends BaseAlertDialog {
 			sortType = DEFAULT_SORT_TYPE;
 			sysAppFilter = false;
 		}
+
+        public void load() {
+            MainPreference mainPreference = MainPreference.getIns();
+            try {
+                sortOrder = SortOrder.valueOf(
+                        mainPreference.getDialogConfigSortOrder());
+            } catch (Exception e) {
+                sortOrder = DEFAULT_SORT_ORDER;
+            }
+            try {
+                sortType = SortType.valueOf(
+                        mainPreference.getDialogConfigSortType());
+            } catch (Exception e) {
+                sortType = DEFAULT_SORT_TYPE;
+            }
+            sysAppFilter = mainPreference.isDialogConfigSystemFilter();
+        }
+
+        public void save() {
+            MainPreference mainPreference = MainPreference.getIns();
+            mainPreference.setDialogConfigSortOrder(sortOrder.toString());
+            mainPreference.setDialogConfigSortType(sortType.toString());
+            mainPreference.setDialogConfigSystemFilter(sysAppFilter);
+        }
 		
 		@Override
 		protected AdvanceConfig clone() {
@@ -83,7 +108,7 @@ public final class AdvanceConfDialog extends BaseAlertDialog {
 			
 			return obj;
 		}
-		
+
 	}
 	
 	private static final int[] SORT_TYPE_DESC = {
@@ -225,6 +250,7 @@ public final class AdvanceConfDialog extends BaseAlertDialog {
 			
 			@Override
 			public void onClick(View v) {
+                mConfig.save();
 				dismiss();
 				
 				if (mBtnListener != null) {
@@ -239,6 +265,7 @@ public final class AdvanceConfDialog extends BaseAlertDialog {
 			@Override
 			public void onClick(View v) {
 				mConfig.reset();
+                mConfig.save();
 				dismiss();
 				
 				if (mBtnListener != null) {
