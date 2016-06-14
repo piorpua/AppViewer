@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">应用查看器</string>
     <string name="loading_txt">载入中</string>
-    <string name="searchview_query_hint_txt">键入应用名或包名关键字...</string>
+    <string name="searchview_query_hint_txt">应用名或包名关键字&#8230;</string>
 
     <string name="appdetail_dialog_level_desc">应用级别：普通</string>
     <string name="appdetail_dialog_level_desc_sys">应用级别：&lt;font color=#ff0000 &gt;系统&lt;/font&gt;</string>
