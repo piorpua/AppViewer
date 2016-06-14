@@ -14,8 +14,8 @@ import android.widget.Spinner;
 import cn.piorpua.android.ui.components.apkicon.BaseAlertDialog;
 import cn.piorpua.appviewer.MainPreference;
 import cn.piorpua.appviewer.R;
-import cn.piorpua.appviewer.apps.AppModelCmp.SortOrder;
-import cn.piorpua.appviewer.apps.AppModelCmp.SortType;
+import cn.piorpua.appviewer.apps.data.AppModelCmp.SortOrder;
+import cn.piorpua.appviewer.apps.data.AppModelCmp.SortType;
 
 public final class AdvanceConfDialog extends BaseAlertDialog {
 	

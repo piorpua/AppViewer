@@ -20,8 +20,8 @@ import cn.piorpua.android.ui.components.apkicon.GetApkIcon;
 import cn.piorpua.android.ui.components.apkicon.GetDrawable;
 import cn.piorpua.android.utils.CommonUtil;
 import cn.piorpua.appviewer.R;
-import cn.piorpua.appviewer.apps.AppModel;
-import cn.piorpua.appviewer.apps.AppModelCmp;
+import cn.piorpua.appviewer.apps.data.AppModel;
+import cn.piorpua.appviewer.apps.data.AppModelCmp;
 import cn.piorpua.appviewer.ui.AdvanceConfDialog.AdvanceConfig;
 
 public final class ListViewHandler 

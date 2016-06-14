@@ -14,6 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import cn.piorpua.android.utils.CommonUtil;
 import cn.piorpua.android.utils.components.GetPackageStats;
+import cn.piorpua.appviewer.apps.data.AppModel;
 
 public final class AppListHandler {
 	
@@ -59,51 +60,55 @@ public final class AppListHandler {
 				
 				try {
 					final ApplicationInfo appInfo = pkgInfo.applicationInfo;
-					appModel.mSystem = CommonUtil.MyApplication.isSystemApp(appInfo);
-					appModel.mAppPath = CommonUtil.MyString.getDeepCopy(
-							appInfo.publicSourceDir, true);
-					appModel.mPkgName = CommonUtil.MyString.getDeepCopy(
-							pkgInfo.packageName, true);
-					
-					appModel.mAppName = pkgMgr.getApplicationLabel(appInfo).toString();
-					if (TextUtils.isEmpty(appModel.mAppName)) {
-						appModel.mAppName = appModel.mPkgName;
+
+					appModel.setSystemApp(CommonUtil.
+                            MyApplication.isSystemApp(appInfo));
+					appModel.setAppPath(CommonUtil.
+                            MyString.getDeepCopy(appInfo.publicSourceDir, true));
+
+                    String pkgName = CommonUtil.
+                            MyString.getDeepCopy(pkgInfo.packageName, true);
+					appModel.setPkgName(pkgName);
+
+                    String appName = pkgMgr.getApplicationLabel(appInfo).toString();
+					if (TextUtils.isEmpty(appName)) {
+                        appName = pkgName;
 					}
-					appModel.mAppName = CommonUtil.MyString.getDeepCopy(
-							appModel.mAppName, true);
+					appModel.setAppName(CommonUtil.
+                            MyString.getDeepCopy(appName, true));
+
+					appModel.setVersion(CommonUtil.
+                            MyString.getDeepCopy(pkgInfo.versionName, true));
 					
-					appModel.mVersion = CommonUtil.MyString.getDeepCopy(
-							pkgInfo.versionName, true);
-					
-					appModel.mInstallTime = CommonUtil.MyApplication.getAppInstallTime(pkgInfo);
-					
-					count.incrementAndGet();
-					GetPackageStats stats = new GetPackageStats(mCtx, appModel.mPkgName);
-					stats.setOnGetPackageStatsObserver(new GetPackageStats.IGetPackageStatsObserver() {
-						
-						@Override
-						public void onGetStatFailed(ErrorCode Code) {
-							count.decrementAndGet();
-						}
-						
-						@Override
-						public void onGetStatCompleted(PackageStats pkgStats) {
-							appModel.mApkSize = CommonUtil.MyApplication.getApkSize(appInfo, pkgStats);
-							appModel.mDataSize = CommonUtil.MyApplication.getApkExternalDataSize(pkgStats);
-							
-							count.decrementAndGet();
-						}
-					});
-					stats.start();
-					
+					appModel.setInstallTime(CommonUtil.
+                            MyApplication.getAppInstallTime(pkgInfo));
+
+                    count.incrementAndGet();
+                    GetPackageStats stats = new GetPackageStats(mCtx, pkgName);
+                    stats.setOnGetPackageStatsObserver(new GetPackageStats.IGetPackageStatsObserver() {
+
+                        @Override
+                        public void onGetStatFailed(ErrorCode Code) {
+                            count.decrementAndGet();
+                        }
+
+                        @Override
+                        public void onGetStatCompleted(PackageStats pkgStats) {
+                            appModel.setApkSize(CommonUtil.
+                                    MyApplication.getApkSize(appInfo, pkgStats));
+                            appModel.setDataSize(CommonUtil.
+                                    MyApplication.getApkExternalDataSize(pkgStats));
+
+                            count.decrementAndGet();
+                        }
+                    });
+                    stats.start();
 				} catch (Exception e) {
 					continue ;
 				}
 				
 				list.add(appModel);
 			}
-			
-			Collections.sort(list);
 			
 			while (count.get() > 0) {
 				try {
@@ -112,13 +117,14 @@ public final class AppListHandler {
 					e.printStackTrace();
 				}
 			}
+
+			Collections.sort(list);
 			
 			if (mCallback != null) {
 				mCallback.onLoad(list);
 				mCallback = null;
 			}
 		}
-		
 	}
 	
 	private Context mCtx;
@@ -132,7 +138,8 @@ public final class AppListHandler {
 	}
 	
 	public void asycLoadAppList(ICallback callback) {
-		new Thread(new AppLoadRunnable(callback)).start();
+        String threadName = "AppListHandler-".concat(
+                String.valueOf(System.currentTimeMillis()));
+		new Thread(new AppLoadRunnable(callback), threadName).start();
 	}
-	
 }

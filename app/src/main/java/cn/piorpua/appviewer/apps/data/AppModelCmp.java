@@ -1,4 +1,4 @@
-package cn.piorpua.appviewer.apps;
+package cn.piorpua.appviewer.apps.data;
 
 import java.util.Comparator;
 import java.util.Locale;

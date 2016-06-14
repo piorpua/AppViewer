@@ -17,7 +17,7 @@ import cn.piorpua.android.ui.components.apkicon.GetApkIcon;
 import cn.piorpua.android.ui.components.apkicon.GetDrawable;
 import cn.piorpua.android.utils.CommonUtil;
 import cn.piorpua.appviewer.R;
-import cn.piorpua.appviewer.apps.AppModel;
+import cn.piorpua.appviewer.apps.data.AppModel;
 
 public final class AppDetailDialog extends BaseAlertDialog {
 	

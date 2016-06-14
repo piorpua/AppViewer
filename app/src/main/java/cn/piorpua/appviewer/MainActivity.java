@@ -18,7 +18,7 @@ import java.util.List;
 import cn.piorpua.android.ui.components.apkicon.BaseAlertDialog;
 import cn.piorpua.android.utils.CommonUtil;
 import cn.piorpua.appviewer.apps.AppListHandler;
-import cn.piorpua.appviewer.apps.AppModel;
+import cn.piorpua.appviewer.apps.data.AppModel;
 import cn.piorpua.appviewer.ui.AdvanceConfDialog;
 import cn.piorpua.appviewer.ui.ListViewHandler;
 import cn.piorpua.appviewer.ui.SearchViewHandler;
