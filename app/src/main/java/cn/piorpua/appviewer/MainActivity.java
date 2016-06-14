@@ -63,8 +63,26 @@ public class MainActivity extends Activity {
 				super.handleMessage(msg);
 			}
 		}
-		
 	}
+
+    private static final class LoadAppListCallback implements AppListHandler.ICallback {
+
+        private WeakReference<MainActivity> mRefAct;
+
+        public LoadAppListCallback(MainActivity act) {
+            mRefAct = new WeakReference<MainActivity>(act);
+        }
+
+        @Override
+        public void onLoad(List<AppModel> list) {
+            MainActivity act = mRefAct.get();
+            if (act == null || act.isFinishing()) {
+                return;
+            }
+
+            act.onLoaded(list);
+        }
+    }
 	
 	private Context mAppContext = MainApplication.getApplication();    // prevent activity leak
 	
@@ -85,17 +103,8 @@ public class MainActivity extends Activity {
 		init();
 		
 		mHandler.sendEmptyMessage(MyHandler.MSG_LOADING_SHOW);
-		mAppListHandler.asycLoadAppList(new AppListHandler.ICallback() {
-
-			@Override
-			public void onLoad(List<AppModel> list) {
-				mListView.setList(list);
-                mListView.filter(mConfDialog.getConfig());
-
-				mHandler.sendEmptyMessage(MyHandler.MSG_DATA_READY);
-				mHandler.sendEmptyMessage(MyHandler.MSG_LOADING_HIDE);
-			}
-		});
+		mAppListHandler.asycLoadAppList(
+                new LoadAppListCallback(this));
 
 		MainPreference mainPreference = MainPreference.getIns();
 		if (!mainPreference.isShortcurCreated() &&
@@ -194,14 +203,21 @@ public class MainActivity extends Activity {
 			mLoadingDialog = null;
 		}
 	}
-	
-	private void onDataReady() {
-		mListView.notifyDataSetChanged();
-	}
+
+    private void onLoaded(List<AppModel> list) {
+        mListView.setList(list);
+        mListView.filter(mConfDialog.getConfig());
+
+        mHandler.sendEmptyMessage(MyHandler.MSG_DATA_READY);
+        mHandler.sendEmptyMessage(MyHandler.MSG_LOADING_HIDE);
+    }
 	
 	private void onAdvanceConfig() {
 		mListView.filter(mConfDialog.getConfig());
 		mHandler.sendEmptyMessage(MyHandler.MSG_DATA_READY);
 	}
 
+    private void onDataReady() {
+        mListView.notifyDataSetChanged();
+    }
 }
