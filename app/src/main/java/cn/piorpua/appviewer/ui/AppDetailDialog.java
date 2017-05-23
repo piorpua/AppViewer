@@ -66,7 +66,11 @@ public final class AppDetailDialog extends BaseAlertDialog {
 		}
 		
 		mTitleTv.setText(model.getAppName());
-		mSubTitleTv.setText(model.getVersion());
+
+		StringBuilder strBuilder = new StringBuilder();
+		strBuilder.append(model.getVersion())
+				.append('(').append(model.getVersionCode()).append(')');
+		mSubTitleTv.setText(strBuilder.toString());
 		
 		if (model.isSystemApp()) {
 			mLevelTv.setText(Html.fromHtml(mLevelDescSys));

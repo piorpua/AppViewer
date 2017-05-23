@@ -79,6 +79,8 @@ public final class AppListHandler {
 
 					appModel.setVersion(CommonUtil.
                             MyString.getDeepCopy(pkgInfo.versionName, true));
+
+					appModel.setVersionCode(pkgInfo.versionCode);
 					
 					appModel.setInstallTime(CommonUtil.
                             MyApplication.getAppInstallTime(pkgInfo));

@@ -12,6 +12,7 @@ public final class AppModel implements Comparable<AppModel> {
 	protected String mPkgName;
 	protected String mAppName;
 	protected String mVersion;
+	protected int mVersionCode;
 	protected boolean mSystem;
 	
 	protected long mInstallTime;
@@ -116,6 +117,13 @@ public final class AppModel implements Comparable<AppModel> {
 	}
 	public void setVersion(String version) {
 		mVersion = getStrDeepCopy(version);
+	}
+
+	public int getVersionCode() {
+		return mVersionCode;
+	}
+	public void setVersionCode(int code) {
+		mVersionCode = code;
 	}
 	
 	public long getInstallTime() {
